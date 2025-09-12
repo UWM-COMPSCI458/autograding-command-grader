@@ -18,6 +18,10 @@ inputs:
   max-score:
     description: "Maximum points awarded upon a successful test."
     required: false
+  use-exit-as-score:
+    description: "Use the command's exit status as the grader score"
+    default: false
+    required: false
 outputs:
   result:
     description: "Outputs the result of the grader, indicating the success or failure of the test."

@@ -90,6 +90,10 @@ function run() {
       title: "Autograding report",
     })
 
+    if (score < maxScore) {
+      core.setFailed("Score less than " + maxScore)
+    }
+
     // status = score == maxScore ? "pass" : "fail"
 
     // core.notice(status, {
@@ -105,6 +109,8 @@ function run() {
     core.warning(error.message, {
       title: "Autograding error"
     })
+
+    core.setFailed("Encountered error")
     
     // result = generateResult(status, testName, command, errorMessage, endTime - startTime, 0, maxScore)
   }

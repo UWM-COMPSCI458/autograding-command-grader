@@ -13,7 +13,7 @@ function btoa(str) {
   return Buffer.from(str).toString('base64')
 }
 
-function generateResult(status, testName, command, message, duration, maxScore) {
+function generateResult(status, testName, command, message, duration, score, maxScore) {
   return {
     version: 1,
     status,
@@ -22,7 +22,7 @@ function generateResult(status, testName, command, message, duration, maxScore) 
       {
         name: testName,
         status,
-        score: status === 'pass' ? maxScore : 0,
+        score: score,
         message,
         test_code: command,
         filename: '',
@@ -67,11 +67,11 @@ function run() {
     result = spawnSync(command, {timeout, env, stdio: 'inherit'})
     endTime = new Date()
 
-    result = generateResult('pass', testName, command, result.stdout, endTime - startTime, maxScore)
+    result = generateResult('pass', testName, command, result.stdout, endTime - startTime, result.status, maxScore)
   } catch (error) {
     endTime = new Date()
     const {status, errorMessage} = getErrorMessageAndStatus(error, command)
-    result = generateResult(status, testName, command, errorMessage, endTime - startTime, maxScore)
+    result = generateResult(status, testName, command, errorMessage, endTime - startTime, 0, maxScore)
   }
 
   core.setOutput('result', btoa(JSON.stringify(result)))

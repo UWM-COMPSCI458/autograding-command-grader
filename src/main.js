@@ -68,6 +68,7 @@ function run() {
     endTime = new Date()
 
     score = result.status
+    core.warning("Error: " + result.error)
     core.warning("Score: " + score)
     core.warning("Output: " + result.output)
 

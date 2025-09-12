@@ -1,5 +1,5 @@
 const core = require('@actions/core')
-const {execSync} = require('child_process')
+const {spawnSync} = require('child_process')
 
 const env = {
   PATH: process.env.PATH,
@@ -64,10 +64,10 @@ function run() {
     }
 
     startTime = new Date()
-    output = execSync(command, {timeout, env, stdio: 'inherit'})?.toString()
+    result = spawnSync(command, {timeout, env, stdio: 'inherit'})
     endTime = new Date()
 
-    result = generateResult('pass', testName, command, output, endTime - startTime, maxScore)
+    result = generateResult('pass', testName, command, result.stdout, endTime - startTime, maxScore)
   } catch (error) {
     endTime = new Date()
     const {status, errorMessage} = getErrorMessageAndStatus(error, command)

@@ -85,7 +85,7 @@ function run() {
       title: "Autograding report",
     })
 
-    status = "pass" ? score == maxScore : "fail"
+    status = score == maxScore ? "pass" : "fail"
 
     core.notice(status, {
       title: "Autograding status"

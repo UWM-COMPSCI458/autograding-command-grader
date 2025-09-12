@@ -73,7 +73,8 @@ async function run() {
     }
 
     startTime = new Date()
-    result = spawnSync(command, arguments, {timeout, env, stdio: 'inherit'})
+    // result = spawnSync(command, arguments, {timeout, env, stdio: 'inherit'})
+    result = spawnSync(command, arguments, {timeout, env})
     endTime = new Date()
 
     score = result.status

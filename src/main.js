@@ -1,8 +1,8 @@
 const core = require('@actions/core')
-const {DefaultArtifactClient} = require('@actions/artifact')
+// const {DefaultArtifactClient} = require('@actions/artifact')
 const {spawnSync} = require('child_process')
-const fs = require('fs');
-const github = require('@actions/github');
+// const fs = require('fs');
+// const github = require('@actions/github');
 
 const env = {
   PATH: process.env.PATH,
@@ -80,10 +80,7 @@ async function run() {
     score = result.status
 
     core.warning(result.stdout.toString('utf8'), {
-      title: "output",
-    })
-    core.warning("TESTING", {
-      title: "stdout",
+      title: "Autograder output",
     })
     // core.setOutput('report', result.stdout)
 

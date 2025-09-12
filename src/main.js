@@ -82,6 +82,12 @@ async function run() {
     core.notice(result.stdout.toString('utf8'), {
       title: "Autograder output",
     })
+
+    if (result.stderr != null) {
+      core.error(result.stderr.toString('utf8'), {
+        title: "Autograder error",
+      })
+    }
     // core.setOutput('report', result.stdout)
 
     fs.writeFileSync('REPORT.txt', result.stdout)

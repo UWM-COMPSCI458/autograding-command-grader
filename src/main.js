@@ -79,7 +79,7 @@ async function run() {
 
     score = result.status
 
-    core.warning(result.output, {
+    core.warning(result.stdout, {
       title: "output",
     })
     core.warning("TESTING", {

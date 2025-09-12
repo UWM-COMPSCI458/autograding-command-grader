@@ -1,5 +1,7 @@
 const core = require('@actions/core')
+// const {DefaultArtifactClient} = require('@actions/artifact')
 const {spawnSync} = require('child_process')
+// const {fs} = require('fs')
 
 const env = {
   PATH: process.env.PATH,
@@ -8,6 +10,8 @@ const env = {
   DOTNET_NOLOGO: 'true',
   HOME: process.env.HOME,
 }
+
+const artifact = new DefaultArtifactClient()
 
 function btoa(str) {
   return Buffer.from(str).toString('base64')
@@ -69,6 +73,22 @@ function run() {
     endTime = new Date()
 
     score = result.status
+
+    core.setOutput("report", result.stdout)
+
+    // fs.writeFileSync('report.txt', result.stdout)
+
+    // const {id, size} = await artifact.uploadArtifact(
+    //   // name of the artifact
+    //   'report',
+    //   // files to include (supports absolute and relative paths)
+    //   ['/absolute/path/file1.txt', './relative/file2.txt'],
+    //   {
+    //     // optional: how long to retain the artifact
+    //     // if unspecified, defaults to repository/org retention settings (the limit of this value)
+    //     retentionDays: 10
+    //   }
+    // )
 
     totalPoints = score
     maxPoints = maxScore

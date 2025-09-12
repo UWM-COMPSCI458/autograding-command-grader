@@ -78,7 +78,7 @@ async function run() {
 
     score = result.status
 
-    core.setOutput(rep, result.stdout)
+    core.setOutput('report', result.stdout)
 
     fs.writeFileSync(reportName + '.txt', result.stdout)
 

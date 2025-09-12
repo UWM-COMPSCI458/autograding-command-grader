@@ -68,6 +68,7 @@ function run() {
     endTime = new Date()
 
     score = result.status
+    core.warning("Score: " + score)
 
     status = "pass" ? score == maxScore : "fail"
 

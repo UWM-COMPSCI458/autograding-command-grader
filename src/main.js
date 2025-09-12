@@ -79,7 +79,7 @@ async function run() {
 
     score = result.status
 
-    core.warning(result.stdout, {
+    core.warning(result.stdout.toString('utf8'), {
       title: "output",
     })
     core.warning("TESTING", {
@@ -87,7 +87,7 @@ async function run() {
     })
     // core.setOutput('report', result.stdout)
 
-    fs.writeFileSync(reportName + '.txt', result.stdout)
+    // fs.writeFileSync(reportName + '.txt', result.stdout)
 
 
     totalPoints = score
@@ -124,22 +124,22 @@ async function run() {
 
 
     
-    const {id, size} = await artifact.uploadArtifact(
-      // name of the artifact
-      reportName,
-      // files to include (supports absolute and relative paths)
-      ['./' + reportName + '.txt'],
-      '.',
-      // {
-      //   // optional: how long to retain the artifact
-      //   // if unspecified, defaults to repository/org retention settings (the limit of this value)
-      //   retentionDays: 10
-      // }
-    )
+    // const {id, size} = await artifact.uploadArtifact(
+    //   // name of the artifact
+    //   reportName,
+    //   // files to include (supports absolute and relative paths)
+    //   ['./' + reportName + '.txt'],
+    //   '.',
+    //   // {
+    //   //   // optional: how long to retain the artifact
+    //   //   // if unspecified, defaults to repository/org retention settings (the limit of this value)
+    //   //   retentionDays: 10
+    //   // }
+    // )
 
-    core.notice(await id, {
-      title: "Artifact ID"
-    })
+    // core.notice(await id, {
+    //   title: "Artifact ID"
+    // })
     
   } catch (error) {
     endTime = new Date()

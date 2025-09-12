@@ -69,6 +69,7 @@ function run() {
 
     score = result.status
     core.warning("Score: " + score)
+    core.warning("Output: " + result.output)
 
     status = "pass" ? score == maxScore : "fail"
 

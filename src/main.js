@@ -68,10 +68,12 @@ function run() {
     result = spawnSync(command, arguments, {timeout, env, stdio: 'inherit'})
     endTime = new Date()
 
-    score = result.status
+    regexPattern = /^Total score ([0-9]+) \/ ([0-9]+)\s*$/gm
 
-    totalPoints = score
-    maxPoints = maxScore
+    match = result.stdout.match(regexPattern)
+    
+    totalPoints = match[0]
+    maxPoints = match[1]
 
     const text = `Points ${totalPoints}/${maxPoints}`;
     const summary = JSON.stringify({ totalPoints, maxPoints })

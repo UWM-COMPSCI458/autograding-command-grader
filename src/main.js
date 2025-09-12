@@ -64,7 +64,7 @@ function run() {
     }
 
     startTime = new Date()
-    result = spawnSync('bash', ['set_score.sh', '9'], {timeout, env, stdio: 'inherit'})
+    result = spawnSync('exit', ['9'], {timeout, env, stdio: 'inherit'})
     endTime = new Date()
 
     score = result.status

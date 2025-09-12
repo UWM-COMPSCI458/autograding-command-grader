@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 // const {DefaultArtifactClient} = require('@actions/artifact')
 const {spawnSync} = require('child_process')
-// const fs = require('fs');
+const fs = require('fs');
 // const github = require('@actions/github');
 
 const env = {
@@ -84,7 +84,7 @@ async function run() {
     })
     // core.setOutput('report', result.stdout)
 
-    // fs.writeFileSync(reportName + '.txt', result.stdout)
+    fs.writeFileSync('REPORT.txt', result.stdout)
 
 
     totalPoints = score

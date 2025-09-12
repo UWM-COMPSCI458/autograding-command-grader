@@ -79,7 +79,7 @@ async function run() {
 
     score = result.status
 
-    core.notice("", {
+    core.notice("Output:", {
       title: "Autograder output",
       details: result.stdout.toString('utf8')
     })

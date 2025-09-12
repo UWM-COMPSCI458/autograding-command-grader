@@ -128,7 +128,7 @@ async function run() {
       // name of the artifact
       reportName,
       // files to include (supports absolute and relative paths)
-      [reportName + '.txt'],
+      ['./' + reportName + '.txt'],
       // {
       //   // optional: how long to retain the artifact
       //   // if unspecified, defaults to repository/org retention settings (the limit of this value)

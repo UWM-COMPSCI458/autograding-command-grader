@@ -12,7 +12,7 @@ const env = {
   HOME: process.env.HOME,
 }
 
-const artifact = new DefaultArtifactClient()
+// const artifact = new DefaultArtifactClient()
 
 function btoa(str) {
   return Buffer.from(str).toString('base64')

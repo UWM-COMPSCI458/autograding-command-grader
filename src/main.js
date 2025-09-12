@@ -85,11 +85,11 @@ function run() {
       title: "Autograding report",
     })
 
-    status = score == maxScore ? "pass" : "fail"
+    // status = score == maxScore ? "pass" : "fail"
 
-    core.notice(status, {
-      title: "Autograding status"
-    })
+    // core.notice(status, {
+    //   title: "Autograding status"
+    // })
 
     // result = generateResult(status, testName, command, result.stdout, endTime - startTime, score, maxScore)
     

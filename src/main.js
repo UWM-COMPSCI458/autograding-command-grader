@@ -70,6 +70,8 @@ function run() {
 
     regexPattern = /^Total score ([0-9]+) \/ ([0-9]+)\s*$/gm
 
+    core.notice(result.stdout)
+
     match = result.stdout.match(regexPattern)
     
     totalPoints = match[0]

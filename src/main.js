@@ -67,7 +67,12 @@ function run() {
     result = spawnSync(command, {timeout, env, stdio: 'inherit'})
     endTime = new Date()
 
-    result = generateResult('pass', testName, command, result.stdout, endTime - startTime, result.status, maxScore)
+    score = result.status
+
+    status = "pass" ? score == maxScore : "fail"
+
+    result = generateResult(status, testName, command, result.stdout, endTime - startTime, result.status, maxScore)
+    
   } catch (error) {
     endTime = new Date()
     const {status, errorMessage} = getErrorMessageAndStatus(error, command)

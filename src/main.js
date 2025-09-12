@@ -1,7 +1,8 @@
 const core = require('@actions/core')
-// const {DefaultArtifactClient} = require('@actions/artifact')
+const {DefaultArtifactClient} = require('@actions/artifact')
 const {spawnSync} = require('child_process')
-// const {fs} = require('fs')
+const fs = require('fs');
+const github = require('@actions/github');
 
 const env = {
   PATH: process.env.PATH,
@@ -50,13 +51,16 @@ function getErrorMessageAndStatus(error, command) {
   return  { status: 'error', errorMessage: error.message }
 }
 
-function run() {
+async function run() {
   const testName = core.getInput('test-name', {required: true})
   const setupCommand = core.getInput('setup-command')
   const command = core.getInput('command', {required: true})
   const arguments = JSON.parse(core.getInput('arguments', {required: true}))
   const timeout = parseFloat(core.getInput('timeout') || 10) * 60000 // Convert to minutes
   const maxScore = parseInt(core.getInput('max-score') || 0)
+
+
+  const reportName = 'report_' + github.context.sha.substring(0, 7)
 
   let output = ''
   let startTime
@@ -74,21 +78,10 @@ function run() {
 
     score = result.status
 
-    core.setOutput("report", result.stdout)
+    core.setOutput(rep, result.stdout)
 
-    // fs.writeFileSync('report.txt', result.stdout)
+    fs.writeFileSync(reportName + '.txt', result.stdout)
 
-    // const {id, size} = await artifact.uploadArtifact(
-    //   // name of the artifact
-    //   'report',
-    //   // files to include (supports absolute and relative paths)
-    //   ['/absolute/path/file1.txt', './relative/file2.txt'],
-    //   {
-    //     // optional: how long to retain the artifact
-    //     // if unspecified, defaults to repository/org retention settings (the limit of this value)
-    //     retentionDays: 10
-    //   }
-    // )
 
     totalPoints = score
     maxPoints = maxScore
@@ -121,6 +114,20 @@ function run() {
     // })
 
     // result = generateResult(status, testName, command, result.stdout, endTime - startTime, score, maxScore)
+
+
+    
+    const {id, size} = await artifact.uploadArtifact(
+      // name of the artifact
+      reportName,
+      // files to include (supports absolute and relative paths)
+      [reportName + '.txt'],
+      // {
+      //   // optional: how long to retain the artifact
+      //   // if unspecified, defaults to repository/org retention settings (the limit of this value)
+      //   retentionDays: 10
+      // }
+    )
     
   } catch (error) {
     endTime = new Date()

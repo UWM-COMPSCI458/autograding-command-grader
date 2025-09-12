@@ -79,9 +79,9 @@ async function run() {
 
     score = result.status
 
-    // core.notice(result.stdout.toString('utf8'), {
-    //   title: "Autograder output",
-    // })
+    core.notice(result.stdout.toString('utf8'), {
+      title: "Autograder output",
+    })
     // core.setOutput('report', result.stdout)
 
     fs.writeFileSync('REPORT.txt', result.stdout)

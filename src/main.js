@@ -81,6 +81,9 @@ async function run() {
     core.warning(result.stdout, {
       title: "stdout",
     })
+    core.warning("TESTING", {
+      title: "stdout",
+    })
     // core.setOutput('report', result.stdout)
 
     // fs.writeFileSync(reportName + '.txt', result.stdout)

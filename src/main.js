@@ -50,7 +50,7 @@ function run() {
   const testName = core.getInput('test-name', {required: true})
   const setupCommand = core.getInput('setup-command')
   const command = core.getInput('command', {required: true})
-  const arguments = core.getInput('arguments', {required: true})
+  const arguments = JSON.parse(core.getInput('arguments', {required: true}))
   const timeout = parseFloat(core.getInput('timeout') || 10) * 60000 // Convert to minutes
   const maxScore = parseInt(core.getInput('max-score') || 0)
 
@@ -65,7 +65,7 @@ function run() {
     }
 
     startTime = new Date()
-    result = spawnSync('bash', ['./set_score.sh', '7'], {timeout, env, stdio: 'inherit'})
+    result = spawnSync(command, arguments, {timeout, env, stdio: 'inherit'})
     endTime = new Date()
 
     score = result.status

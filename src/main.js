@@ -60,7 +60,7 @@ async function run() {
   const maxScore = parseInt(core.getInput('max-score') || 0)
 
 
-  const reportName = 'report_' + github.context.sha.substring(0, 7)
+  // const reportName = 'report_' + github.context.sha.substring(0, 7)
 
   let output = ''
   let startTime

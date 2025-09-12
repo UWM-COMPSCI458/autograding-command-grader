@@ -22,9 +22,9 @@ function generateResult(status, testName, command, message, duration, score, max
       {
         name: testName,
         status,
-        score: score,
+        score,
         message,
-        test_code: command,
+        test_code: '',
         filename: '',
         line_no: 0,
         duration,
@@ -69,21 +69,42 @@ function run() {
     endTime = new Date()
 
     score = result.status
-    core.warning("Error: " + result.error)
-    core.warning("Score: " + score)
-    core.warning("Output: " + result.output)
+
+    totalPoints = score
+    maxPoints = maxScore
+
+    const text = `Points ${totalPoints}/${maxPoints}`;
+    const summary = JSON.stringify({ totalPoints, maxPoints })
+
+    // create notice annotations with the final result and summary
+    core.notice(text, {
+      title: "Autograding complete",
+    })
+
+    core.notice(summary, {
+      title: "Autograding report",
+    })
 
     status = "pass" ? score == maxScore : "fail"
 
-    result = generateResult(status, testName, command, result.stdout, endTime - startTime, result.status, maxScore)
+    core.notice(status, {
+      title: "Autograding status"
+    })
+
+    // result = generateResult(status, testName, command, result.stdout, endTime - startTime, score, maxScore)
     
   } catch (error) {
     endTime = new Date()
-    const {status, errorMessage} = getErrorMessageAndStatus(error, command)
-    result = generateResult(status, testName, command, errorMessage, endTime - startTime, 0, maxScore)
+    // const {status, errorMessage} = getErrorMessageAndStatus(error, command)
+
+    core.warning(error.message, {
+      title: "Autograding error"
+    })
+    
+    // result = generateResult(status, testName, command, errorMessage, endTime - startTime, 0, maxScore)
   }
 
-  core.setOutput('result', btoa(JSON.stringify(result)))
+  // core.setOutput('result', btoa(JSON.stringify(result)))
 }
 
 run()

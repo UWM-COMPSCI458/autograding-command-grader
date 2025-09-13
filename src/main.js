@@ -92,7 +92,7 @@ async function run() {
 
     core.setOutput('report', result.stdout.toString('utf8'))
 
-    fs.writeFileSync('REPORT.txt', result.stdout)
+    fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, result.stdout)
 
 
     totalPoints = score

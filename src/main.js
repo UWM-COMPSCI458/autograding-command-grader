@@ -89,7 +89,8 @@ async function run() {
         title: "Autograder error",
       })
     }
-    // core.setOutput('report', result.stdout)
+
+    core.setOutput('report', result.stdout.toString('utf8'))
 
     fs.writeFileSync('REPORT.txt', result.stdout)
 
